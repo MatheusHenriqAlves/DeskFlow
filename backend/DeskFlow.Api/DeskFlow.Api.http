@@ -1,0 +1,102 @@
+@host = http://localhost:5087
+@userToken = PASTE_USER_TOKEN_HERE
+@techToken = PASTE_TECH_TOKEN_HERE
+@adminToken = PASTE_ADMIN_TOKEN_HERE
+@ticketId = 1
+
+GET {{host}}/api/health
+Accept: application/json
+
+###
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@deskflow.local",
+  "password": "User@123!"
+}
+
+###
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "tech@deskflow.local",
+  "password": "Tech@123!"
+}
+
+###
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@deskflow.local",
+  "password": "Admin@123!"
+}
+
+###
+POST {{host}}/api/tickets
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "title": "Sistema financeiro de produção fora do ar",
+  "description": "Todos os usuários estão bloqueados e os pagamentos estão indisponíveis.",
+  "category": "Software"
+}
+
+###
+GET {{host}}/api/tickets?page=1&pageSize=20
+Authorization: Bearer {{userToken}}
+Accept: application/json
+
+###
+GET {{host}}/api/tickets/{{ticketId}}
+Authorization: Bearer {{userToken}}
+Accept: application/json
+
+###
+POST {{host}}/api/tickets/{{ticketId}}/comments
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "content": "O problema continua acontecendo."
+}
+
+###
+GET {{host}}/api/tickets/{{ticketId}}/history
+Authorization: Bearer {{userToken}}
+Accept: application/json
+
+###
+POST {{host}}/api/tickets/{{ticketId}}/assign
+Authorization: Bearer {{techToken}}
+
+###
+PUT {{host}}/api/tickets/{{ticketId}}/status
+Authorization: Bearer {{techToken}}
+Content-Type: application/json
+
+{
+  "status": "Resolved"
+}
+
+###
+PUT {{host}}/api/tickets/{{ticketId}}/category
+Authorization: Bearer {{techToken}}
+Content-Type: application/json
+
+{
+  "category": "Software"
+}
+
+###
+GET {{host}}/api/metrics
+Authorization: Bearer {{adminToken}}
+Accept: application/json
+
+###
+GET {{host}}/api/users
+Authorization: Bearer {{adminToken}}
+Accept: application/json

@@ -1,0 +1,24 @@
+# Compilacao .NET
+**/bin/
+**/obj/
+
+# Dependencias e builds do frontend
+**/node_modules/
+**/dist/
+**/build/
+**/.next/
+
+# Arquivos locais das IDEs
+.vs/
+*.user
+*.suo
+
+# Variaveis de ambiente locais
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Resultados de testes
+TestResults/
+coverage/
